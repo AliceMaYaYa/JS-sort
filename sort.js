@@ -1,55 +1,61 @@
 //直接插入排序
 var insertSort = function(arr) {
-  var len = arr.length;
-    var j,tmp;
-  for(var i = 1; i < len; i++){
-      tmp = arr[i];
+    var len = arr.length,
+        i,
+        j,
+        tmp;
+    for(i = 1; i < len; i++){
+        tmp = arr[i];
         j = i - 1;
         while( j >= 0 && arr[j] > tmp){
-          arr[j+1] = arr[j];
-          j--;
+            arr[j+1] = arr[j];
+            j--;
         }
-      arr[j+1] = tmp;
-  }
+        arr[j+1] = tmp;
+    }
     return arr;
 };
 
 // 二分法插入排序
 var binaryInsertSort = function(arr) {
-  var len = arr.length;
-  for (var i = 1; i < len; i++) {
-      var key = arr[i], left = 0, right = i - 1;
-      while (left <= right) {
-          var middle = parseInt((left + right) / 2);
-          if (key < arr[middle]) {
-              right = middle - 1;
+    var len = arr.length,
+        i,
+        j;
+    for(i = 1; i < len; i++) {
+        var key = arr[i], left = 0, right = i - 1;
+        while (left <= right) {
+            var middle = parseInt((left + right) / 2);
+            if (key < arr[middle]) {
+                right = middle - 1;
             } else {
-              left = middle + 1;
+                left = middle + 1;
             }
-         }
-      for (var j = i - 1; j >= left; j--) {
-          arr[j + 1] = arr[j];
+        }
+        for(j = i - 1; j >= left; j--) {
+            arr[j + 1] = arr[j];
+        }
+        arr[left] = key;
     }
-          arr[left] = key;
-  }
     return arr;
 };
 
 //希尔排序
 var shellSort = function (arr) {
     var len = arr.length,
-        temp,
+        i,
+        j,
+        tmp,
         gap = 1;
     while(gap < len/3) {
       gap =gap*3+1;
     }
     for (gap; gap > 0; gap = Math.floor(gap/3)) {
-        for (var i = gap; i < len; i++) {
-            temp = arr[i];
-            for (var j = i-gap; j >= 0 && arr[j] > temp; j-=gap) {
+        for (i = gap; i < len; i++) {
+            tmp = arr[i];
+            for (j = i-gap; j >= 0 && arr[j] > tmp; j-=gap) {
                 arr[j+gap] = arr[j];
             }
-           arr[j+gap] = temp;
+           arr[j+gap] = tmp;
         }
     }
     return arr;
@@ -98,12 +104,16 @@ var bubbleSort1 = function(arr) {
 
 //快速排序
 var quickSort = function(arr) {
-　　if (arr.length <= 1) { return arr; }
-　　var pivotIndex = Math.floor(arr.length / 2);
+    var len = arr.length,
+        i, 
+        tmp, 
+        exchange;
+　　if (len <= 1) { return arr; }
+　　var pivotIndex = Math.floor(len / 2);
 　　var pivot = arr.splice(pivotIndex, 1)[0];
 　　var left = [];
 　　var right = [];
-　　for (var i = 0; i < arr.length; i++){
+　　for (i = 0; i < len; i++){
 　　　　if (arr[i] < pivot) {
 　　　　　　left.push(arr[i]);
 　　　　} else {
@@ -277,7 +287,9 @@ var bucketSort = function(arr, bucketSize) {
     return arr;
 };
 
-//计数排序
+//基数排序
+//要求数组的数都要大于等于0
+// maxDigit表示最大位数
 var radixSort = function(arr, maxDigit) {
     var mod = 10;
     var dev = 1;
