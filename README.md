@@ -16,17 +16,19 @@
 ``` JavaScript
 //直接插入排序
 var insertSort = function(arr) {
-	var len = arr.length;
-    var j,tmp;
-	for(var i = 1; i < len; i++){
-	    tmp = arr[i];
+    var len = arr.length,
+        i,
+        j,
+        tmp;
+    for(i = 1; i < len; i++){
+        tmp = arr[i];
         j = i - 1;
         while( j >= 0 && arr[j] > tmp){
-	        arr[j+1] = arr[j];
-	        j--;
+            arr[j+1] = arr[j];
+            j--;
         }
-	    arr[j+1] = tmp;
-	}
+        arr[j+1] = tmp;
+    }
     return arr;
 };
 ```
@@ -46,22 +48,24 @@ var insertSort = function(arr) {
 ```
 // 二分法插入排序
 var binaryInsertSort = function(arr) {
-	var len = arr.length;
-	for (var i = 1; i < len; i++) {
-	    var key = arr[i], left = 0, right = i - 1;
-	    while (left <= right) {
-	        var middle = parseInt((left + right) / 2);
-	        if (key < arr[middle]) {
-	            right = middle - 1;
+    var len = arr.length,
+        i,
+        j;
+    for(i = 1; i < len; i++) {
+        var key = arr[i], left = 0, right = i - 1;
+        while (left <= right) {
+            var middle = parseInt((left + right) / 2);
+            if (key < arr[middle]) {
+                right = middle - 1;
             } else {
-	            left = middle + 1;
+                left = middle + 1;
             }
-         }
-		for (var j = i - 1; j >= left; j--) {
-	        arr[j + 1] = arr[j];
-		}
-	        arr[left] = key;
-	}
+        }
+        for(j = i - 1; j >= left; j--) {
+            arr[j + 1] = arr[j];
+        }
+        arr[left] = key;
+    }
     return arr;
 };
 ```
@@ -76,24 +80,26 @@ var binaryInsertSort = function(arr) {
   <hr>
 ##**3、希尔排序**
 ####**算法思想**：希尔排序是插入排序的一种更高效的改进版本，也称递减增量排序算法。它是将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序。
-<center><center>
+<center>![希尔排序](http://img.blog.csdn.net/20170213205306234?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ```
 //希尔排序
 var shellSort = function (arr) {
-	var len = arr.length,
-        temp,
+    var len = arr.length,
+        i,
+        j,
+        tmp,
         gap = 1;
     while(gap < len/3) {
-	    gap =gap*3+1;
+      gap =gap*3+1;
     }
     for (gap; gap > 0; gap = Math.floor(gap/3)) {
-	    for (var i = gap; i < len; i++) {
-	        temp = arr[i];
-	        for (var j = i-gap; j >= 0 && arr[j] > temp; j-=gap) {
-	            arr[j+gap] = arr[j];
+        for (i = gap; i < len; i++) {
+            tmp = arr[i];
+            for (j = i-gap; j >= 0 && arr[j] > tmp; j-=gap) {
+                arr[j+gap] = arr[j];
             }
-            arr[j+gap] = temp;
+           arr[j+gap] = tmp;
         }
     }
     return arr;
@@ -118,7 +124,7 @@ var shellSort = function (arr) {
 <hr>
 ##**1、冒泡排序**
 ####**算法思想**：是一种简单直观的排序算法。比较相邻的元素，如果第一个比第二个大，就交换他们两个；对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对，会得到最后的元素是最大的数；将所有的元素重复以上的步骤，除了最后一个，直到没有数字需要比较。
-<center><center>
+<center>![冒泡排序](http://img.blog.csdn.net/20170213205334141?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //冒泡排序
@@ -150,7 +156,7 @@ var bubbleSort = function(arr) {
  <hr>
 ##**2、改进冒泡排序**
 ####**算法思想**： 优化思路是当一次遍历前后数组不产生变化时，说明该数组已经有序，结束排序。
-<center><center>
+<center>![改进冒泡排序](http://img.blog.csdn.net/20170213205524332?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //改进冒泡排序
@@ -189,24 +195,28 @@ var bubbleSort1 = function(arr) {
 ####(1)、在数据集之中，选择一个元素作为"基准"。
 ####(2)、所有小于"基准"的元素，都移到"基准"的左边；所有大于"基准"的元素，都移到"基准"的右边。
 ####(3)、对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
-<center><center>
+<center>![快速排序](http://img.blog.csdn.net/20170213205603598?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //快速排序
 var quickSort = function(arr) {
-　　if (arr.length <= 1) { return arr; }
-　　var pivotIndex = Math.floor(arr.length / 2);
-　　var pivot = arr.splice(pivotIndex, 1)[0];
-　　var left = [];
-　　var right = [];
-　　for (var i = 0; i < arr.length; i++){
-　　　　if (arr[i] < pivot) {
-　　　　　　left.push(arr[i]);
-　　　　} else {
-　　　　　　right.push(arr[i]);
-　　　　}
-　　}
-　　return quickSort(left).concat([pivot], quickSort(right));
+	var len = arr.length,
+        i, 
+        tmp, 
+        exchange;
+　　 if (len <= 1) { return arr; }
+　　 var pivotIndex = Math.floor(len / 2);
+　　 var pivot = arr.splice(pivotIndex, 1)[0];
+　　 var left = [];
+　　 var right = [];
+　　 for (i = 0; i < len; i++){
+　　　　 if (arr[i] < pivot) {
+　　　　　　 left.push(arr[i]);
+　　　　 } else {
+　　　　　　 right.push(arr[i]);
+　　　　 }
+　　 }
+　　 return quickSort(left).concat([pivot], quickSort(right));
 };
 ```
 ###**算法分析：**
@@ -227,7 +237,7 @@ var quickSort = function(arr) {
 <hr>
 ##**1、选择排序**
 ####**算法思想**：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置；再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾；重复第二步，直到所有元素均排序完毕。
-<center><center>
+<center>![选择排序](http://img.blog.csdn.net/20170213205659242?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //选择排序
@@ -266,7 +276,7 @@ var selectionSort = function(arr) {
 ####(2)、把堆首（最大值）和堆尾互换；
 ####(3)、把堆的尺寸缩小 1，并调用 shift_down(0)，目的是把新的数组顶端数据调整到相应位置；
 ####(4)、重复步骤 2，直到堆的尺寸为 1。
-<center><center>
+<center>![堆排序](http://img.blog.csdn.net/20170213210339920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //堆排序
@@ -326,7 +336,7 @@ var heapSort = function(arr) {       // 堆排序
 ####(3)、比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置；
 ####(4)、重复步骤 3 直到某一指针达到序列尾；
 ####(5)、将另一序列剩下的所有元素直接复制到合并序列尾。
-<center><center>
+<center>![归并排序](http://img.blog.csdn.net/20170213210146964?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //归并排序
@@ -381,7 +391,7 @@ var merge = function(left, right){
 ####(2)、统计数组中每个值为i的元素出现的次数，存入数组C的第i项
 ####(3)、对所有的计数累加（从C中的第一个元素开始，每一项和前一项相加）
 ####(4)、反向填充目标数组：将每个元素i放在新数组的第C(i)项，每放一个元素就将C(i)减去1
-<center><center>
+<center>![计数排序](http://img.blog.csdn.net/20170213205826414?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //计数排序
@@ -417,7 +427,7 @@ var countingSort = function(arr, maxValue) {
  <hr>
 ##**2、桶排序**
 ####**算法思想**：利用了函数的映射关系，高效与否的关键就在于这个映射函数的确定。对于一组程度为N的待排序数据，将这些数据划分为M个区间（即放入M个桶中）。根据某种映射函数，将这N个数据放入M个桶中。然后对每个桶中的数据进行排序，最后依次输出，得到已排序数据。桶排序要求待排序的元素都属于一个固定的且有限的区间范围内。
-<center><center>
+<center>![桶排序](http://img.blog.csdn.net/20170213210015509?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //桶排序
@@ -483,7 +493,7 @@ var bucketSort = function(arr, bucketSize) {
  <hr>
 ##**3、基数排序**
 ####**算法思想**：基数排序是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。
-<center><center>
+<center>![基数排序](http://img.blog.csdn.net/20170213205916383?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvRXNtaWxlMjAxMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)<center>
 ###**代码：**
 ``` JavaScript
 //基数排序
@@ -525,7 +535,7 @@ var radixSort = function(arr, maxDigit) {
 </ul>
  <hr>
 ##**本文代码：**
-####[demo源码](https://facebook.github.io/react/)
+####[demo源码](https://github.com/AliceMaYaYa/JS-sort)
  <hr>
 ##**参考文章：**
 ####[排序图解：js排序算法实现](http://www.jianshu.com/p/7e6589306a27)
